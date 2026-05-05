@@ -10,7 +10,7 @@ const CreateView = () => {
     const dispatch = useAppDispatch();
 
     const { user, isAuthenticated } = useAppSelector((state) => state.auth);
-    const { loading: postLoading } = useAppSelector((state) => state.post);
+    const { loading: postLoading } = useAppSelector((state) => state.posts);
     const { imageUrl, loading: imageLoading } = useAppSelector(
         (state) => state.image
     );
