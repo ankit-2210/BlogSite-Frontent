@@ -12,6 +12,9 @@ export interface Post {
 
 export interface PostState {
     posts: Post[];
+    total: number;
+    page: number;
+    pages: number;
     currentPost: Post | null;
     loading: boolean;
     error: string | null;

@@ -9,7 +9,7 @@ export const store = configureStore({
     reducer: {
         auth: authReducer,
         contact: contactReducer,
-        post: postReducer,
+        posts: postReducer,
         image: imageReducer,
         comment: commentReducer,
     },

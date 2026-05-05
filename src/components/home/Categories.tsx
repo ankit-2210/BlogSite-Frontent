@@ -4,7 +4,9 @@ import { categories } from "../../constants/data";
 const Categories = () => {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
+    // console.log(query);
     const activeCategory = query.get("category");
+    // console.log(activeCategory);
 
     return (
         <div className="mt-6">

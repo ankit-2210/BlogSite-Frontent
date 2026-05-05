@@ -11,7 +11,7 @@ const UpdateView = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const { currentPost: postData, loading } = useAppSelector((state) => state.post);
+    const { currentPost: postData, loading } = useAppSelector((state) => state.posts);
     const { imageUrl, loading: imageLoading } = useAppSelector((state) => state.image);
 
     const [post, setPost] = useState({
@@ -121,7 +121,7 @@ const UpdateView = () => {
                     <img
                         src={imagePreview}
                         alt="preview"
-                        className="w-full h-[350px] object-cover rounded-2xl shadow-md"
+                        className="w-full h-[650px] object-cover rounded-2xl shadow-md"
                     />
                     <label className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition cursor-pointer rounded-2xl">
                         <span className="text-white text-lg">

@@ -6,6 +6,9 @@ import type { Post, PostState } from "./types/post";
 
 const initialState: PostState = {
     posts: [],
+    total: 0,
+    page: 1,
+    pages: 1,
     currentPost: null,
     loading: false,
     error: null,
@@ -13,15 +16,29 @@ const initialState: PostState = {
 
 
 export const fetchPosts = createAsyncThunk<
-    Post[],
-    string | undefined,
+    {
+        posts: Post[];
+        total: number;
+        page: number;
+        pages: number;
+    },
+    {
+        category?: string;
+        search?: string;
+        page?: number;
+    },
     { rejectValue: string }
->("posts/fetchPosts", async (query, { rejectWithValue }) => {
+>("posts/fetchPosts", async (params, { rejectWithValue }) => {
+    console.log(params);
     try {
-        const { data } = await api.get(`/posts${query || ""}`);
-        // console.log(data);
+        const { data } = await api.get("/posts", {
+            params
+        });
+
+        console.log(data);
         return data;
-    } catch (error: unknown) {
+    }
+    catch (error: unknown) {
         if (axios.isAxiosError(error)) {
             return rejectWithValue(
                 error.response?.data?.message || "Failed to fetch posts"
@@ -59,7 +76,7 @@ export const createPost = createAsyncThunk<
     { rejectValue: string }
 >("posts/createPost", async (postData, { rejectWithValue }) => {
     try {
-        const { data } = await api.post("/create", postData);
+        const { data } = await api.post("/posts", postData);
         return data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -122,7 +139,10 @@ const postSlice = createSlice({
             })
             .addCase(fetchPosts.fulfilled, (state, action) => {
                 state.loading = false;
-                state.posts = action.payload;
+                state.posts = action.payload.posts;
+                state.total = action.payload.total;
+                state.page = action.payload.page;
+                state.pages = action.payload.pages;
             })
             .addCase(fetchPosts.rejected, (state, action) => {
                 state.loading = false;

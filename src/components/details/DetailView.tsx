@@ -10,11 +10,12 @@ const DetailView = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const { currentPost: post, loading } = useAppSelector((state) => state.post);
+    const { currentPost: post, loading } = useAppSelector((state) => state.posts);
     const { user } = useAppSelector((state) => state.auth);
 
     useEffect(() => {
-        if (!id) return;
+        if (!id)
+            return;
         dispatch(fetchPost(id));
     }, [id, dispatch]);
 
@@ -51,7 +52,7 @@ const DetailView = () => {
                     <img
                         src={image}
                         alt="post"
-                        className="w-full h-[350px] object-cover rounded-2xl shadow-md"
+                        className="w-full h-[650px] object-cover rounded-2xl shadow-md"
                     />
                 </div>
                 {user?.username === post.username && (
